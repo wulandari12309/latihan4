@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Produk</title>
+    <script defer src="jquery/jquery.js"></script>
+    <script defer src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script defer src="dataTables.js"></script>
+    <script defer src="dataTables.bootstrap5.js"></script>
+    <script defer src="dt-table.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="font.css">
+</head>
+<body style="font-family: ptsans; margin: 0; padding: 0;">
+    <nav class="navbar navbar-expand-lg" style="background-color: #fdc3d3;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <div class="row">
+                    <div class="col-3 float-start">
+                        <div class="ms-5 mt-1" style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden;">
+                            <img src="gambar/1.jpg" alt=""width="100%">
+                        </div>
+                    </div>
+                    <div class="col-9 float-end">
+                        <h5 class="mt-3 ms-5 fw-bold" style="color: #f7094a;">Beauty Store**</h5>
+                    </div>
+                </div>
+            </a>
+            <div class="float-end me-5 pe-3">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 my-3">
+                    <li class="nav-item">
+                        <i class="fa-solid fa-display d-block text-center" style="color: #de0843;"></i>
+                        <a href="transaksi.html" class="nav-link fw-semibold" style="color: #de0843;" role="button" aria-expanded="false">
+                            Transaksi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fa-solid fa-bag-shopping d-block text-center" style="color: #de0843;"></i>
+                        <a href="produk.html" class="nav-link fw-semibold" style="color: #de0843;" href="#" role="button" aria-expanded="false">
+                        Data Produk
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fa-solid fa-box-open d-block text-center" style="color: #de0843;"></i>
+                        <a href="kategori.html" class="nav-link fw-semibold" style="color: #de0843;" href="#" role="button" aria-expanded="false">
+                        Kategori
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fa-solid fa-chart-bar d-block text-center" style="color: #de0843;"></i>
+                        <a href="laporan.html" class="nav-link fw-semibold" style="color: #de0843;" href="#" role="button" aria-expanded="false">
+                        Data Laporan
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <i class="fa-solid fa-gears d-block text-center" style="color: #de0843;"></i>
+                        <a href="pengaturan.html" class="nav-link fw-semibold" style="color: #de0843;" href="#" role="button" aria-expanded="false">
+                        Pengaturan
+                        </a>
+                    </li>
+                    <form>
+                        <li class="nav-item">
+                            <i class="fa-solid fa-right-from-bracket d-block text-center" style="color: #de0843;"></i>
+                            <a class="nav-link fw-semibold" id="logoutButton" style="color: #de0843; cursor: pointer;">
+                                Keluar
+                            </a>
+                        </li>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="m-3 border p-3">        
+        <div class="row">
+            <div class="float-start col-6">
+                <h5><i class="fa-solid fa-table me-2 ms-4"></i>Data Produk</h5>
+            </div>
+            <div class="float-end col-6">
+                <div class="text-end me-3">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Tambah Barang
+                </button>
+
+<!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel"><i class="fa-solid fa-cart-plus me-2"></i>Tambah Barang</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post" id="tambahBarangForm">
+                    <label for="kodeBarang" class="form-label float-start">Kode Barang</label>
+                        <input class="form-control" type="text" name="kodeBarang" id="kodeBarang" readonly>
+                        <label for="kategori" class="form-label  float-start">Kategori</label>
+                        <select name="kategoriBarang" id="kategoriBarang" class="form-select" required>
+                            <option value="">Pilih Kategori</option>
+                        </select>
+                        <label for="namaBarang" class="form-label  float-start">Nama Barang</label>
+                        <input  class="form-control" type="text" name="namaBarang" id="namaBarang" required>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="stokBarang" class="form-label  float-start">Stok</label>
+                                <input  class="form-control" type="number" name="stokBarang" id="stokBarang" required>
+                            </div>
+                            <div class="col-4">
+                                <label for="hargaModal" class="form-label  float-start">Harga Modal</label>
+                                <input  class="form-control" type="number" class="form-label  float-start" name="hargaModal" id="hargaModal" required>
+                            </div>
+                            <div class="col-4">
+                                <label for="hargaJual" class="form-label  float-start">Harga Jual</label>
+                                <input  class="form-control" type="number" name="hargaJual" id="hargaJual" required>
+                            </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary"><i class="fa-solid fa-rectangle-xmark me-2"></i>Batal</button>
+                                <button type="reset" class="btn btn-secondary"><i class="fa-solid fa-trash me-2"></i>Reset</button>
+                                <button type="submit" class="btn btn-secondary"><i class="fa-solid fa-square-plus me-2"></i>Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+            </div>
+        </div>
+    </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="p-3">
+        <table id="example" class="table table-bordered" style="width:100%;">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Kode Barang</th>
+                <th>Nama Barang</th>
+                <th>Stok</th>
+                <th>Harga Modal</th>
+                <th>Harga Jual</th>
+                <th>Tanggal Input</th>
+                <th class="px-5">Opsi</th>
+                <th class="d-none">ID Barang</th> <!-- Kolom tersembunyi untuk ID -->
+            </tr>
+        </thead>
+        <tbody>
+             
+        </tbody>
+        </table>
+    </div>
+    </div>
+
+        <!-- Modal Edit Barang -->
+    <div class="modal fade" id="editBarangModal" tabindex="-1" aria-labelledby="editBarangModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="editBarangForm">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editBarangModalLabel">Edit Barang</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" id="editIdBarang">
+                        <div class="mb-3">
+                            <label for="editKodeBarang" class="form-label">Kode Barang</label>
+                            <input type="text" class="form-control" id="editKodeBarang" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editNamaBarang" class="form-label">Nama Barang</label>
+                            <input type="text" class="form-control" id="editNamaBarang" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editKategoriBarang" class="form-label">Kategori</label>
+                            <select class="form-control" id="editKategoriBarang" required>
+                                <option value="">Pilih Kategori</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-4">
+                                <label for="editStokBarang" class="form-label">Stok Barang</label>
+                                <input type="number" class="form-control" id="editStokBarang" required>
+                            </div>
+                            <div class="col-4">                            
+                                <label for="editHargaModal" class="form-label">Harga Modal</label>
+                                <input type="number" class="form-control" id="editHargaModal" required>
+                            </div>
+                            <div class="col-4">                            
+                                <label for="editHargaJual" class="form-label">Harga Jual</label>
+                                <input type="number" class="form-control" id="editHargaJual" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+<script src="jquery/jquery.js"></script>
+
+<script>
+    $(document).ready(function() {
+        var table = $('#example').DataTable();
+
+        function formatDate(dateString) {
+            const options = {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+                const date = new Date(dateString);
+                return date.toLocaleString('sv-SE', options).replace('T', '');
+        }
+
+        function loadBarang() {
+            $.ajax({
+                url: 'http://localhost:8080/daftar-barang',
+                type: 'GET',
+                success: function (response) {
+                    table.clear();
+                    response.forEach((barang, index) => {
+                        const tanggal = formatDate(barang.tanggal);
+                        table.row.add([
+                            index + 1,
+                            barang.kodeBarang,
+                            barang.namaBarang,
+                            barang.stokBarang,
+                            barang.hargaModal,
+                            barang.hargaJual,
+                            tanggal,
+                            `
+                            <div class="row">
+                                <div class="float-start col-4">
+                                    <button type="button" class="btn btn-info btn-edit" data-id="${barang.id}">Edit</button>                    
+                                </div>
+                                <div class="float-end col-1">
+                                    <button type="reset" class="btn btn-danger">Hapus</button>
+                                </div>
+                            </div>
+                            `,
+                            `<span class="d-none">${barang.id}</span>` // Menyembunyikan ID barang dengan kelas d-none
+                        ]).draw(false);
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error('Gagal memuat barang:', status, error);
+                }
+            });
+        }
+        loadBarang();
+
+        $('#staticBackdrop').on('show.bs.modal', function (event) {
+            // Fetch next kodeBarang
+            $.ajax({
+                url: 'http://localhost:8080/next-kode',
+                type: 'GET',
+                success: function(response) {
+                    $('#kodeBarang').val(response);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching next kode barang:', error);
+                }
+            });
+            
+            // Fetch categories
+            $.ajax({
+                url: 'http://localhost:8080/kategori',
+                type: 'GET',
+                success: function(response) {
+                    const kategoriSelect = $('#kategoriBarang');
+                    kategoriSelect.empty(); // Clear existing options
+                    kategoriSelect.append('<option value="">Pilih Kategori</option>'); // Add default option
+                    response.forEach(function(kategori) {
+                        kategoriSelect.append(new Option(kategori.namaKategori, kategori.id));
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching categories:', error);
+                }
+            });
+        });
+
+        $('#tambahBarangForm').on('submit', function (event) {
+            event.preventDefault();
+            const formData = {
+                kodeBarang: $('#kodeBarang').val(),
+                namaBarang: $('#namaBarang').val(),
+                kategoriBarang: $('#kategoriBarang').val(),
+                stokBarang: $('#stokBarang').val(),
+                hargaModal: $('#hargaModal').val(),
+                hargaJual: $('#hargaJual').val()
+            };
+
+            $.ajax({
+                url: 'http://localhost:8080/tambah-barang',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function (response) {
+                    console.log('Tambah barang berhasil:', response);
+                    alert('Barang berhasil ditambahkan!');
+                    $('#staticBackdrop').modal('hide');
+                    loadBarang();
+                    // Setelah berhasil menambahkan barang, kosongkan formulir
+                    $('#tambahBarangForm')[0].reset();
+                },
+                error: function (xhr, status, error) {
+                    console.error('Barang gagal ditambahkan:', status, error);
+                    alert('Barang gagal ditambahkan');
+                }
+            });
+        });
+
+        // Fungsi untuk menghapus barang
+        $('#example tbody').on('click', 'button.btn-danger', function () {
+            var data = table.row($(this).parents('tr')).data();
+            var idBarang = $(this).closest('tr').find('.d-none').text().trim();
+            $.ajax({
+                url: 'http://localhost:8080/hapus-barang/' + idBarang,
+                type: 'DELETE',
+                success: function(response) {
+                    console.log('Hapus barang berhasil:', response);
+                    alert('Barang berhasil dihapus!');
+                    loadBarang(); // Muat ulang data barang setelah menghapus
+                },
+                error: function(xhr, status, error) {
+                    console.error('Barang gagal dihapus:', status, error);
+                    alert('Barang gagal dihapus');
+                }
+            });
+        });
+
+        // Fetch categories and populate dropdown on modal show for edit
+        $('#editBarangModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var idBarang = button.data('id');
+            var kategoriId = button.data('kategori');
+
+            // Fetch categories
+            $.ajax({
+                url: 'http://localhost:8080/kategori',
+                type: 'GET',
+                success: function(response) {
+                    const kategoriSelect = $('#editKategoriBarang');
+                    kategoriSelect.empty(); // Clear existing options
+                    response.forEach(function(kategori) {
+                        const option = new Option(kategori.namaKategori, kategori.id);
+                        if (kategori.id == kategoriId) {
+                            option.selected = true; // Set the existing category as selected
+                        }
+                        kategoriSelect.append(option);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching categories:', error);
+                }
+            });
+        });
+
+        // Fungsi untuk membuka modal edit dan mengisi data
+        $('#example tbody').on('click', 'button.btn-edit', function() {
+            var data = table.row($(this).parents('tr')).data();
+            var idBarang = $(this).data('id');
+            var kategoriId = $(this).data('kategori');
+
+            // Mengisi modal dengan data yang ada
+            $('#editIdBarang').val(idBarang);
+            $('#editKodeBarang').val(data[1]);
+            $('#editNamaBarang').val(data[2]);
+            $('#editStokBarang').val(data[3]);
+            $('#editHargaModal').val(data[4]);
+            $('#editHargaJual').val(data[5]);
+
+            $('#editBarangModal').modal('show'); // Tampilkan modal edit
+        });
+
+        // Fungsi untuk mengedit barang
+        $('#editBarangForm').on('submit', function(event) {
+            event.preventDefault();
+            const idBarang = $('#editIdBarang').val();
+            const formData = {
+                kodeBarang: $('#editKodeBarang').val(),
+                namaBarang: $('#editNamaBarang').val(),
+                kategoriBarang: $('#editKategoriBarang').val(),
+                stokBarang: $('#editStokBarang').val(),
+                hargaModal: $('#editHargaModal').val(),
+                hargaJual: $('#editHargaJual').val()
+            };
+
+            $.ajax({
+                url: 'http://localhost:8080/edit-barang/' + idBarang,
+                type: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    console.log('Edit barang berhasil:', response);
+                    alert('Barang berhasil diupdate!');
+                    $('#editBarangModal').modal('hide');
+                    loadBarang();
+                },
+                error: function(xhr, status, error) {
+                    console.error('Barang gagal diupdate:', status, error);
+                    alert('Barang gagal diupdate');
+                }
+            });
+        });
+
+        $('#logoutButton').on('click', function(event) {
+            event.preventDefault();
+                
+            $.ajax({
+                url: 'http://localhost:8080/logout',
+                method: 'POST',
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(response) {
+                    console.log('Logout berhasil:', response);
+                    // Hapus namaKasir dari localStorage
+                    localStorage.removeItem('namaKasir');
+                    // Redirect ke halaman login
+                    window.location.href = 'login.html';
+                },
+                error: function(xhr, status, error) {
+                    console.error('Logout gagal:', status, error);
+                    alert('Logout gagal');
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

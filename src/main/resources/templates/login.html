@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <script src="jquery/jquery.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container-fluid col-6 my-4 border">
+    <h1 class="text-center">Login Form</h1>
+    <form id="loginForm" action="/login" method="post">
+        <div class="mb-3">
+            <label for="namaKasir" class="form-label">Username</label>
+            <input type="text" class="form-control" id="namaKasir" name="namaKasir">
+        </div>
+        <div class="mb-3">
+            <label for="passwordKasir" class="form-label">Password</label>
+            <input type="password" class="form-control" id="passwordKasir" name="passwordKasir">
+        </div>
+        <div class="text-center my-3">
+            <button type="submit" class="btn btn-primary" id="loginButton">Submit</button>
+        </div>
+        <div class="text-center">
+            <p>Belum punya akun? <a href="daftar.html" class="text-decoration-none">Daftar sekarang</a></p>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#loginForm').on('submit', function(event) {
+            event.preventDefault();
+            const formData = {
+                namaKasir: $('#namaKasir').val(),
+                passwordKasir: $('#passwordKasir').val()
+            };
+
+            $.ajax({
+                url: 'http://localhost:8080/login',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(response) {
+                    console.log('Login berhasil:', response);
+                    localStorage.setItem('namaKasir', response.namaKasir);
+                    window.location.href = 'transaksi.html';
+                },
+                error: function(xhr, status, error) {
+                    console.error('Login gagal:', status, error);
+                    alert('Login gagal');
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

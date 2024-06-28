@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaksi</title>
+    <script src="jquery/jquery.js"></script>
+    <script src="jquery/jquery-ui.js"></script>
+    <link rel="stylesheet" href="jquery/jquery-ui.css">
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="font.css">
+</head>
+<body style="font-family: ptsans; margin: 0; padding: 0;">
+<nav class="navbar navbar-expand-lg" style="background-color: #fdc3d3;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <div class="row">
+                <div class="col-3 float-start">
+                    <div class="ms-5 mt-1" style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden;">
+                        <img src="gambar/1.jpg" alt=""width="100%">
+                    </div>
+                </div>
+                <div class="col-9 float-end">
+                    <h5 class="mt-3 ms-5 fw-bold" style="color: #f7094a;">Beauty Store**</h5>
+                </div>
+            </div>
+        </a>
+        <div class="float-end me-5 pe-3">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 my-3">
+                <li class="nav-item">
+                    <i class="fa-solid fa-display d-block text-center" style="color: #de0843;"></i>
+                    <a href="transaksi.html" class="nav-link fw-semibold" style="color: #de0843;" role="button" aria-expanded="false">
+                        Transaksi
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <i class="fa-solid fa-bag-shopping d-block text-center" style="color: #de0843;"></i>
+                    <a href="produk.html" class="nav-link fw-semibold" style="color: #de0843;" href="#" role="button" aria-expanded="false">
+                    Data Produk
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <i class="fa-solid fa-box-open d-block text-center" style="color: #de0843;"></i>
+                    <a href="kategori.html" class="nav-link fw-semibold" style="color: #de0843;" href="#" role="button" aria-expanded="false">
+                    Kategori
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <i class="fa-solid fa-chart-bar d-block text-center" style="color: #de0843;"></i>
+                    <a href="laporan.html" class="nav-link fw-semibold" style="color: #de0843;" href="#" role="button" aria-expanded="false">
+                    Data Laporan
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <i class="fa-solid fa-gears d-block text-center" style="color: #de0843;"></i>
+                    <a href="pengaturan.html" class="nav-link fw-semibold" style="color: #de0843;" href="#" role="button" aria-expanded="false">
+                    Pengaturan
+                    </a>
+                </li>
+                <form>
+                    <li class="nav-item">
+                        <i class="fa-solid fa-right-from-bracket d-block text-center" style="color: #de0843;"></i>
+                        <a class="nav-link fw-semibold" id="logoutButton" style="color: #de0843; cursor: pointer;">
+                            Keluar
+                        </a>
+                    </li>
+                </form>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid mt-3">
+    <div class="row">
+        <div class="float-start col-3">
+            <div class="card" style="width: 20rem;">            
+                <span class="border ps-2"><i class="fa-regular fa-note-sticky pe-2"></i> Informasi Nota</span>
+                <table class="m-3">
+                    <tr>
+                        <td><label for="nota">No. Nota</label></td>
+                        <td>:</td>
+                        <td><input type="text" class="form-control form-control-sm" name="nota" id="nota"></td>
+                    </tr>
+                    <tr>                    
+                        <td><label for="tanggal">Tanggal</label></td>
+                        <td>:</td>
+                        <td><input type="text" class="form-control form-control-sm" name="tanggal" id="tanggal"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="namaKasir">Nama Kasir</label></td>
+                        <td>:</td>
+                        <td><input type="text" class="form-control form-control-sm" name="namaKasir" id="namaKasir" value="" readonly></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="float-end col-9 border">
+            <table>
+                <tr>
+                    <td style="width: 200px;">
+                        <label for="namaBarang" class="form-label">Nama Barang</label>
+                        <input type="text" name="namaBarang" id="namaBarang" class="form-control form-control-sm" required>
+                    </td>
+                    <td class="ps-3" style="width: 150px;">
+                        <label for="kodeBarang" class="form-label">Kode Barang</label>
+                        <input type="text" name="kodeBarang" id="kodeBarang" class="form-control form-control-sm" readonly required>
+                    </td>
+                    <td class="ps-3" style="width: 150px;">
+                        <label for="hargaBarang" class="form-label">Harga Barang</label>
+                        <input type="number" name="hargaBarang" id="hargaBarang" class="form-control form-control-sm" readonly required>
+                    </td>
+                    <td class="ps-3" style="width: 100px;">
+                        <label for="stok" class="form-label">Stok</label>
+                        <input type="number" name="stok" id="stok" class="form-control form-control-sm w-75" readonly required>
+                    </td>
+                    <td class="" style="width: 100px;">
+                        <label for="qty" class="form-label">Qty</label>
+                        <input type="number" name="qty" id="qty" class="form-control form-control-sm w-75" required>
+                    </td>
+                    <td class="pt-4">
+                        <button type="submit" class="btn btn-primary d-inline" id="submitBtn">Submit</button>
+                    </td>
+                </tr>
+            </table>  
+            
+            <table class="table table-bordered mt-3" style="width:100%" id="outputTable">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Kode Barang</th>
+                        <th>Nama Barang</th>
+                        <th>Harga</th>
+                        <th>Stok</th>
+                        <th>Qty</th>
+                        <th>Subtotal</th>
+                        <th>Opsi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>        
+            </table>
+
+            <div class="row">
+                <form action="" method="post">
+                    <div class="float-start col-6">
+                        <textarea name="catatan" id="catatan" class="form-control" rows="7" placeholder="Tambahkan Catatan Disini"></textarea>
+                    </div>
+                    <div class="float-end col-5">
+                        <div class="row">
+                            <div class="float-start col-4">
+                                <label for="total" class="form-label fw-semibold">Total Keseluruhan</label>
+                            </div>
+                            <div class="float-end col-8">
+                                <input type="number" name="total" id="total" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="row my-2">
+                            <div class="float-start col-4">
+                                <label for="pembayaran" class="form-label fw-semibold">Pembayaran</label>
+                            </div>
+                            <div class="float-end col-8">
+                                <input type="number" name="pembayaran" id="pembayaran" class="form-control">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="float-start col-4">
+                                <label for="kembalian" class="form-label fw-semibold">Kembalian</label>
+                            </div>
+                            <div class="float-end col-8">
+                                <input type="number" name="kembalian" id="kembalian" class="form-control" readonly>
+                            </div>
+                        </div>
+                        <div class="my-3 ms-5 ps-2">
+                            <button type="submit" class="btn btn-warning px-4"><i class="fa-solid fa-print me-2"></i>Cetak</button>
+                            <button type="reset" class="btn btn-danger px-4" id="resetPembayaran"><i class="fa-solid fa-trash-arrow-up me-2"></i>Reset</button>
+                            <button type="submit" class="btn btn-success px-4" id="simpanBtn"><i class="fa-solid fa-floppy-disk me-2"></i>Simpan</button>
+                        </div>                                                                                                
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function() {
+        $.ajax({
+            url: 'http://localhost:8080/transaksi',
+            method: 'GET',
+            xhrFields: {
+                withCredentials: true
+            },
+            success: function(response) {
+                console.log('Response from server:', response);
+                if (response.loggedIn) {
+                    $('#namaKasir').val(response.username);
+                } else {
+                    $('#namaKasir').val('Pengguna tidak login');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching data:', error);
+                $('#namaKasir').val('Pengguna tidak login');
+                window.location.href = 'login.html';
+            }
+        });
+
+        function getLastNota() {
+        var lastNota = localStorage.getItem('lastNota');
+        if (!lastNota || isNaN(parseInt(lastNota))) {
+            lastNota = 0; // If lastNota is not found or is NaN, set it to 0, kalo 1 berarti awalnya dari 1 kalo 0 berarti awalnya dari 0
+        }
+        return parseInt(lastNota);
+        }
+
+        // Fungsi untuk menyimpan nomor nota terbaru ke localStorage
+        function saveLastNota(nota) {
+            localStorage.setItem('lastNota', nota.toString());
+            console.log('Saved lastNota to localStorage:', nota);    
+        }
+
+        // Mendapatkan nomor nota terakhir
+        var lastNota = getLastNota();
+        $('#nota').val(lastNota); // Set the nota input field value
+
+
+            // Fungsi untuk menghasilkan nomor nota baru setiap kali transaksi berhasil disimpan
+        function generateNewNotaNumber() {
+            var newNota = lastNota + 1;
+            return newNota;
+        }
+
+        function getCurrentDateTime() {
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = (now.getMonth() + 1).toString().padStart(2, '0');
+            var date = now.getDate().toString().padStart(2, '0');
+            var hours = now.getHours().toString().padStart(2, '0');
+            var minutes = now.getMinutes().toString().padStart(2, '0');
+            var seconds = now.getSeconds().toString().padStart(2, '0');
+            return year + '-' + month + '-' + date + ' ' + hours + ':' + minutes + ':' + seconds;
+        }
+
+        // Fungsi untuk mengatur nilai tanggal saat ini ke input
+        function setTanggalSekarang() {
+            $('#tanggal').val(getCurrentDateTime());
+        } 
+
+        setTanggalSekarang();
+
+        function fetchBarangData(namaBarang) {
+            $.ajax({
+                url: `http://localhost:8080/barang/` + namaBarang, // Sesuaikan URL endpoint backend Anda
+                method: 'GET',
+                success: function(data) {
+                    if (data) {
+                        $('#kodeBarang').val(data.kodeBarang);
+                        $('#hargaBarang').val(data.hargaJual);
+                        $('#stok').val(data.stokBarang);
+                    } else {
+                        $('#kodeBarang').val('');
+                        $('#hargaBarang').val('');
+                        $('#stok').val('');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching barang data:', error);
+                    $('#kodeBarang').val('');
+                    $('#hargaBarang').val('');
+                    $('#stok').val('');
+                }
+            });
+        }
+
+        $('#namaBarang').autocomplete({
+            source: function(request, response) {
+                $.ajax({
+                    url: `http://localhost:8080/daftar-barang`,
+                    method: 'GET',
+                    data: {
+                        term: request.term
+                    },
+                    success: function(data) {
+                        // Filter data berdasarkan term
+                        var filteredData = data.filter(function(item) {
+                            return item.namaBarang.toLowerCase().indexOf(request.term.toLowerCase()) !== -1;
+                        });
+
+                            // Konversi data yang sudah difilter menjadi format yang diharapkan oleh autocomplete
+                        var formattedData = filteredData.map(function(item) {
+                            return {
+                                label: item.namaBarang,
+                                value: item.namaBarang,
+                                kodeBarang: item.kodeBarang,
+                                hargaJual: item.hargaJual,
+                                stokBarang: item.stokBarang
+                            };
+                        });
+
+                            // Kirim data yang sudah diformat sebagai respons
+                        response(formattedData);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error fetching autocomplete suggestions:', error);
+                    }
+                });
+            },
+            select: function(event, ui) {
+                $('#kodeBarang').val(ui.item.kodeBarang);
+                $('#hargaBarang').val(ui.item.hargaJual);
+                $('#stok').val(ui.item.stokBarang);
+            },
+            minLength: 0
+        }).on('click', function() {
+                $(this).autocomplete('search', $(this).val());
+            });
+
+        // Event handler untuk tombol submit
+        $('#submitBtn').on('click', function(event) {
+            event.preventDefault();
+
+            var namaBarang = $('#namaBarang').val();
+            var kodeBarang = $('#kodeBarang').val();
+            var hargaBarang = $('#hargaBarang').val();
+            var stok = $('#stok').val();
+            var qty = $('#qty').val();
+            var subtotal = hargaBarang * qty;
+
+            // Increment item count for each new item
+                itemCount++;
+
+            if (editRow) {
+                // Jika dalam mode edit, perbarui baris yang ada
+                editRow.find('td:eq(1)').text(kodeBarang);
+                editRow.find('td:eq(2)').text(namaBarang);
+                editRow.find('td:eq(3)').text(hargaBarang);
+                editRow.find('td:eq(4)').text(stok);
+                editRow.find('td:eq(5)').text(qty);
+                editRow.find('td:eq(6)').text(subtotal);
+
+                // Kembali ke mode tambah data baru
+                editRow = null;
+            } else {
+                // Jika dalam mode tambah data baru, tambahkan baris baru
+                var newRow = '<tr>' +
+                    '<td>' + itemCount + '</td>' +
+                    '<td>' + kodeBarang + '</td>' +
+                    '<td>' + namaBarang + '</td>' +
+                    '<td>' + hargaBarang + '</td>' +
+                    '<td>' + stok + '</td>' +
+                    '<td>' + qty + '</td>' +
+                    '<td>' + subtotal + '</td>' +
+                    '<td><button class="btn btn-primary editBtn me-2">Edit</button><button class="btn btn-danger deleteBtn">Delete</button></td>' +
+                    '</tr>';
+                $('#outputTable tbody').append(newRow);
+            }
+
+            // Update total keseluruhan
+            updateTotal();
+
+            // Update kembalian
+            updateKembalian();
+
+            // Mengosongkan nilai dari setiap input setelah ditambahkan ke dalam tabel
+            $('#namaBarang').val('');
+            $('#kodeBarang').val('');
+            $('#hargaBarang').val('');
+            $('#stok').val('');
+            $('#qty').val('');
+        });
+
+        let itemCount = 0; // No urut untuk tabel dari data barang              
+
+        var editRow = null; // Variabel untuk menyimpan baris yang sedang diedit
+
+        // Event listener untuk tombol edit
+        $(document).on('click', '.editBtn', function() {
+            editRow = $(this).closest('tr'); // Simpan baris yang sedang diedit
+                var kodeBarang = editRow.find('td:eq(1)').text();
+                var namaBarang = editRow.find('td:eq(2)').text();
+                var hargaBarang = editRow.find('td:eq(3)').text();    
+                var stok = editRow.find('td:eq(4)').text();
+                var qty = editRow.find('td:eq(5)').text();
+                
+                // Isi kembali nilai input dengan nilai yang diperoleh dari baris tabel yang akan diedit
+                $('#kodeBarang').val(kodeBarang);
+                $('#namaBarang').val(namaBarang);
+                $('#hargaBarang').val(hargaBarang);
+                $('#stok').val(stok);
+                $('#qty').val(qty);
+        });
+
+        $(document).on('click', '.deleteBtn', function() {
+            $(this).closest('tr').remove();
+                itemCount--; // Decrement item count when an item is deleted
+                // Update total keseluruhan
+                updateTotal();
+                // Update kembalian
+                updateKembalian();
+                // Re-index all rows
+            $('#outputTable tbody tr').each(function(index) {
+                $(this).find('td:first').text(index + 1);
+            });
+        });
+
+        function updateTotal() {
+            let total = 0;
+            $('#outputTable tbody tr').each(function() {
+                const subtotal = parseFloat($(this).find('td').eq(6).text());
+                total += subtotal;
+            });
+            $('#total').val(total);
+        }
+
+        function updateKembalian() {
+            const total = parseFloat($('#total').val()) || 0;
+            const pembayaran = parseFloat($('#pembayaran').val()) || 0;
+            const kembalian = pembayaran - total;
+            $('#kembalian').val(kembalian);
+        }                    
+
+        $('#resetPembayaran').on('click', function (e) {
+            e.preventDefault();
+            $('#pembayaran').val('');
+            $('#kembalian').val('');
+        })
+                        
+        $('#pembayaran').on('input', function() {
+            updateKembalian();
+        });
+                    
+        $('#simpanBtn').on('click', function(event) {
+            event.preventDefault();
+
+            // Kumpulkan semua informasi transaksi dari input pengguna
+            var nota = $('#nota').val();
+            var tanggal = $('#tanggal').val();
+            var namaKasir = $('#namaKasir').val();
+            var catatan = $('#catatan').val();
+            var total = $('#total').val();
+            var pembayaran = $('#pembayaran').val();
+            var kembalian = $('#kembalian').val();
+
+            // Kumpulkan informasi item transaksi dari tabel
+            var itemTransaksi = [];
+            $('#outputTable tbody tr').each(function() {
+                var kodeBarang = $(this).find('td').eq(1).text();
+                var namaBarang = $(this).find('td').eq(2).text();
+                var hargaBarang = $(this).find('td').eq(3).text();
+                var qty = $(this).find('td').eq(5).text();
+                var subtotal = $(this).find('td').eq(6).text();
+
+                var item = {
+                    kodeBarang: kodeBarang,
+                    namaBarang: namaBarang,
+                    hargaBarang: hargaBarang,
+                    qty: qty,
+                    subtotal: subtotal
+                };
+                itemTransaksi.push(item);
+            });
+
+            // Buat objek JSON yang berisi data transaksi
+            var transaksiData = {
+                nota: nota,
+                tanggal: tanggal,
+                namaKasir: namaKasir,
+                catatan: catatan,
+                total: total,
+                pembayaran: pembayaran,
+                kembalian: kembalian,
+                itemTransaksiEntities: itemTransaksi
+            };
+
+            // Kirim data transaksi ke backend menggunakan AJAX
+            $.ajax({
+                url: 'http://localhost:8080/save-transaksi', // Sesuaikan dengan endpoint backend Anda
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(transaksiData),
+                success: function(response) {
+                    // Handle response jika transaksi berhasil disimpan
+                    console.log('Transaksi berhasil disimpan:', response);
+                    alert('Transaksi berhasil disimpan!');
+                    var currentNota = parseInt($('#nota').val()); // Mendapatkan nomor nota saat ini dari input
+                    saveLastNota(currentNota + 1); // Menyimpan nomor nota berikutnya ke localStorage
+
+                    location.reload(true);
+                    },
+                error: function(xhr, status, error) {
+                    // Handle error jika terjadi kesalahan saat menyimpan transaksi
+                    console.error('Error saat menyimpan transaksi:', error);
+                    alert('Gagal menyimpan transaksi. Silakan coba lagi.');
+                }
+            });
+        });
+
+            $('#logoutButton').on('click', function(event) {
+                event.preventDefault();
+                
+                $.ajax({
+                    url: 'http://localhost:8080/logout',
+                    method: 'POST',
+                    xhrFields: {
+                        withCredentials: true
+                    },
+                    success: function(response) {
+                        console.log('Logout berhasil:', response);
+                        // Hapus namaKasir dari localStorage
+                        localStorage.removeItem('namaKasir');
+                        // Redirect ke halaman login
+                        window.location.href = 'login.html';
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Logout gagal:', status, error);
+                        alert('Logout gagal');
+                    }
+                });
+            });
+
+    });        
+</script>
+
+
+
+</body>
+</html>

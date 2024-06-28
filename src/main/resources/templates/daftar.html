@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery/jquery.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+<div class="col-5 border my-4 container-fluid">
+    <h1 class="text-center">Register Form</h1>
+    <form method="post" id="registrationForm">
+        <div class="mb-3">
+            <label for="namaKasir" class="form-label">Nama Lengkap</label>
+            <input type="text" class="form-control" id="namaKasir" name="namaKasir" required>
+        </div>
+        <div class="mb-3">
+            <label for="passwordKasir" class="form-label">Password</label>
+            <input type="password" class="form-control" id="passwordKasir" name="passwordKasir" required>
+        </div>
+        <div class="mb-3">
+            <label for="noHpKasir" class="form-label">Nomor Telepon</label>
+            <input type="number" class="form-control" id="noHpKasir" name="noHpKasir" required>
+        </div>
+        <div class="mb-3">
+            <label for="alamatKasir" class="form-label">Alamat Siswa</label>
+            <input type="text" class="form-control" id="alamatKasir" name="alamatKasir">
+        </div>
+        <div class="text-center my-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+        <div class="text-center">
+            <p>Sudah punya akun? <a href="login.html" class="text-decoration-none">Login</a></p>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const registrationForm = document.getElementById('registrationForm');
+
+        registrationForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData(registrationForm);
+            const user = {
+                namaKasir: formData.get('namaKasir'),
+                noHpKasir: formData.get('noHpKasir'),
+                passwordKasir: formData.get('passwordKasir'),
+                alamatKasir: formData.get('alamatKasir')
+            };
+
+            try {
+                $.ajax({
+                    url: 'http://localhost:8080/daftar',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(user),
+                    success: function (response) {
+                        alert('Registrasi berhasil');
+                        window.location.href = 'login.html'; // Redirect to login page
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.getAllResponseHeaders());
+                        console.log(xhr.status);
+                        console.log(error);
+                        alert('Registrasi gagal');
+                    }
+                });
+            } catch (error) {
+                console.error('Error during registration:', error);
+                alert('An error occurred during registration');
+            }
+        });
+    });
+</script>
+</body>
+</html>

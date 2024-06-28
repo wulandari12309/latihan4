@@ -1,0 +1,134 @@
+
+<script>
+$(document).ready(function() {
+    var table = $('#example').DataTable();
+    var currentEditId = null;
+
+    function formatDate(dateString) {
+        const options = {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        };
+        const date = new Date(dateString);
+        return date.toLocaleString('sv-SE', options).replace('T', ' ');
+    }
+
+    function loadCategories() {
+        $.ajax({
+            url: 'http://localhost:8080/kategori',
+            method: 'GET',
+            success: function(response) {
+                table.clear();
+                response.forEach((kategori, index) => {
+                    const tanggal = formatDate(kategori.tanggal);
+                    table.row.add([
+                        index + 1,
+                        kategori.namaKategori,
+                        kategori.qty || '',
+                        tanggal,
+                        `
+                            <div class="row">
+                                <div class="float-start col-5">
+                                    <button type="button" class="btn btn-info btn-edit" data-id="${kategori.id}" data-nama="${kategori.namaKategori}">Edit</button>
+                                </div>
+                                <div class="float-end col-2">
+                                    <button type="button" class="btn btn-danger btn-hapus" data-id="${kategori.id}">Hapus</button>
+                                </div>
+                            </div>
+                        `
+                    ]).draw(false);
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Failed to load categories:', status, error);
+            }
+        });
+    }
+
+    loadCategories();
+
+    $('#formKategori').on('submit', function(event) {
+        event.preventDefault();
+        const formData = {
+            namaKategori: $('#namaKategori').val()
+        };
+        $.ajax({
+            url: 'http://localhost:8080/kategori',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            success: function(response) {
+                console.log('Kategori berhasil ditambahkan:', response);
+                alert('Kategori berhasil ditambahkan!');
+                $('#namaKategori').val('');
+                loadCategories();
+            },
+            error: function(xhr, status, error) {
+                console.error('Kategori gagal ditambahkan:', status, error);
+                alert('Kategori gagal ditambahkan.');
+            }
+        });
+    });
+
+    $(document).on('click', '.btn-edit', function() {
+        var id = $(this).data('id');
+        var nama = $(this).data('nama');
+        currentEditId = id;
+
+        // Sembunyikan form tambah kategori dan tampilkan form edit kategori
+        $('#tambahFormContainer').hide();
+        $('#editFormContainer').show();
+
+        // Set nilai input edit kategori dan fokuskan input
+        $('#editNamaKategori').val(nama).focus();
+    });
+
+    $(document).on('click', '#updateKategoriButton', function(event) {
+        event.preventDefault();
+        if (currentEditId) {
+            var namaKategori = $('#editNamaKategori').val();
+            const formData = {
+                namaKategori: namaKategori
+            };
+            $.ajax({
+                url: `http://localhost:8080/kategori/${currentEditId}`,
+                method: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    console.log('Kategori berhasil diupdate:', response);
+                    alert('Kategori berhasil diupdate!');
+                    resetForm();
+                    loadCategories();
+                },
+                error: function(xhr, status, error) {
+                    console.error('Kategori gagal diupdate:', status, error);
+                    alert('Kategori gagal diupdate.');
+                }
+            });
+        } else {
+            alert('Silakan pilih kategori untuk diedit.');
+        }
+    });
+
+    $(document).on('click', '#cancelButton', function(event) {
+        event.preventDefault();
+        resetForm();
+    });
+
+    function resetForm() {
+        currentEditId = null;
+        $('#editFormContainer').hide();
+        $('#tambahFormContainer').show();
+        $('#editNamaKategori').val('');
+    }
+});
+</script>
+
+</body>
+</html>

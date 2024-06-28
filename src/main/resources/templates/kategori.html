@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kategori</title>
+    <script defer src="bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script defer src="dataTables.js"></script>
+    <script defer src="dataTables.bootstrap5.js"></script>
+    <script defer src="dt-table.js"></script>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="font.css">
+</head>
+<body style="margin: 0; padding: 0; font-family: ptsans;">
+    <nav class="navbar navbar-expand-lg" style="background-color: #fdc3d3;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <div class="row">
+                <div class="col-3 float-start">
+                    <div class="ms-5 mt-1" style="width: 50px; height: 50px; border-radius: 50%; overflow: hidden;">
+                        <img src="gambar/1.jpg" alt=""width="100%">
+                    </div>
+                </div>
+                <div class="col-9 float-end">
+                    <h5 class="mt-3 ms-5 fw-bold" style="color: #f7094a;">Beauty Store**</h5>
+                </div>
+            </div>
+        </a>
+        <div class="float-end me-5 pe-3">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 my-3">
+                <li class="nav-item">
+                    <i class="fa-solid fa-display d-block text-center" style="color: #de0843;"></i>
+                    <a href="transaksi.html" class="nav-link fw-semibold" style="color: #de0843;" role="button" aria-expanded="false">
+                        Transaksi
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <i class="fa-solid fa-bag-shopping d-block text-center" style="color: #de0843;"></i>
+                    <a href="produk.html" class="nav-link fw-semibold" style="color: #de0843;" href="#" role="button" aria-expanded="false">
+                    Data Produk
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <i class="fa-solid fa-box-open d-block text-center" style="color: #de0843;"></i>
+                    <a href="kategori.html" class="nav-link fw-semibold" style="color: #de0843;" href="#" role="button" aria-expanded="false">
+                    Kategori
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <i class="fa-solid fa-chart-bar d-block text-center" style="color: #de0843;"></i>
+                    <a href="laporan.html" class="nav-link fw-semibold" style="color: #de0843;" href="#" role="button" aria-expanded="false">
+                    Data Laporan
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <i class="fa-solid fa-gears d-block text-center" style="color: #de0843;"></i>
+                    <a href="pengaturan.html" class="nav-link fw-semibold" style="color: #de0843;" href="#" role="button" aria-expanded="false">
+                    Pengaturan
+                    </a>
+                </li>
+                <form>
+                    <li class="nav-item">
+                        <i class="fa-solid fa-right-from-bracket d-block text-center" style="color: #de0843;"></i>
+                        <a class="nav-link fw-semibold" id="logoutButton" style="color: #de0843; cursor: pointer;">
+                            Keluar
+                        </a>
+                    </li>
+                </form>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+    <div class="container border p-3">        
+        <div class="row">
+            <div class="float-start col-6">
+            <h5><i class="fa-solid fa-table me-2 ms-4"></i>Data Kategori</h5>
+            </div>
+            <div class="float-end col-6">
+                <div class="text-end me-3">
+                <div id="tambahFormContainer">
+                    <!-- Form Tambah Kategori -->
+                    <form action="" method="post" id="formKategori">
+                        <div class="input-group flex-nowrap float-end" style="width: 300px;">
+                            <input type="text" class="form-control" placeholder="Masukan nama kategori" aria-label="kategori" aria-describedby="addon-wrapping" id="namaKategori" name="namaKategori">
+                            <button class="btn btn-primary" type="submit" id="addon-wrapping">Tambah</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="editFormContainer" style="display: none;" >
+                    <!-- Form Edit Kategori -->
+                    <form action="" method="post" id="editKategoriForm">
+                        <div class="row float-end">
+                            <div class="float-start col-1 ms-4">
+                                <div class="input-group flex-nowrap" style="width: 200px;">
+                                    <input type="text" class="form-control" aria-label="editKategori" aria-describedby="addon-wrapping" id="editNamaKategori" name="editNamaKategori">
+                                    <button class="btn btn-primary" id="updateKategoriButton">Update</button>
+                                </div>
+                            </div>
+                            <div class="float-end col-10">
+                                <button class="btn btn-secondary" id="cancelButton">Batal</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+
+    <div class="container p-3">
+        <table id="example" class="table table-bordered" style="width:100%;">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Nama Kategori</th>
+                <th>Qty</th>
+                <th>Tanggal</th>
+                <th>Opsi</th>
+            </tr>
+        </thead>
+        <tbody>
+          
+        </tbody>
+        </table>
+    </div>
+    </div>
+
+
+<script src="jquery/jquery.js"></script>
+
+<script>
+    $(document).ready(function() {
+        var table = $('#example').DataTable();
+        var currentEditId = null;
+
+        function formatDate(dateString) {
+            const options = {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            };
+            const date = new Date(dateString);
+            return date.toLocaleString('sv-SE', options).replace('T', ' ');
+        }
+
+        function loadCategories() {
+            $.ajax({
+                url: 'http://localhost:8080/kategori',
+                method: 'GET',
+                success: function(response) {
+                    table.clear();
+                    response.forEach((kategori, index) => {
+                        const tanggal = formatDate(kategori.tanggal);
+                        table.row.add([
+                            index + 1,
+                            kategori.namaKategori,
+                            kategori.qty || '',
+                            tanggal,
+                            `
+                                <div class="row">
+                                    <div class="float-start col-5">
+                                        <button type="button" class="btn btn-info btn-edit" data-id="${kategori.id}" data-nama="${kategori.namaKategori}">Edit</button>
+                                    </div>
+                                    <div class="float-end col-2">
+                                        <button type="button" class="btn btn-danger btn-hapus" data-id="${kategori.id}">Hapus</button>
+                                    </div>
+                                </div>
+                            `
+                        ]).draw(false);
+                    });
+                },
+                error: function(xhr, status, error) {
+                    console.error('Failed to load categories:', status, error);
+                }
+            });
+        }
+
+        loadCategories();
+
+        $('#formKategori').on('submit', function(event) {
+            event.preventDefault();
+            const formData = {
+                namaKategori: $('#namaKategori').val()
+            };
+            $.ajax({
+                url: 'http://localhost:8080/kategori',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    alert('Kategori berhasil ditambahkan!');
+                    $('#namaKategori').val('');
+                    loadCategories();
+                },
+                error: function(xhr, status, error) {
+                    console.error('Kategori gagal ditambahkan:', status, error);
+                    alert('Kategori gagal ditambahkan.');
+                }
+            });
+        });
+
+        $(document).on('click', '.btn-edit', function() {
+            var id = $(this).data('id');
+            var nama = $(this).data('nama');
+            $('#editNamaKategori').val(nama).focus();
+            $('#tambahFormContainer').hide();
+            $('#editFormContainer').show();
+            currentEditId = id;
+        });
+
+        $('#cancelButton').on('click', function() {
+            $('#tambahFormContainer').show();
+            $('#editFormContainer').hide();
+            currentEditId = null;
+            $('#editNamaKategori').val('');
+        });
+
+        $('#updateKategoriButton').on('click', function(event) {
+            event.preventDefault();
+            if (currentEditId) {
+                var namaKategori = $('#editNamaKategori').val();
+                const formData = {
+                    namaKategori: namaKategori
+                };
+                $.ajax({
+                    url: `http://localhost:8080/kategori/${currentEditId}`,
+                    method: 'PUT',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function(response) {
+                        alert('Kategori berhasil diupdate!');
+                        $('#editFormContainer').hide();
+                        $('#tambahFormContainer').show();
+                        currentEditId = null;
+                        $('#editNamaKategori').val('');
+                        loadCategories();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Kategori gagal diupdate:', status, error);
+                        alert('Kategori gagal diupdate.');
+                    }
+                });
+            } else {
+                alert('Silakan pilih kategori untuk diedit.');
+            }
+        });
+
+        $('#logoutButton').on('click', function(event) {
+            event.preventDefault();
+            $.ajax({
+                url: 'http://localhost:8080/logout',
+                method: 'POST',
+                xhrFields: {
+                    withCredentials: true
+                },
+                success: function(response) {
+                    localStorage.removeItem('namaKasir');
+                    window.location.href = 'login.html';
+                },
+                error: function(xhr, status, error) {
+                    console.error('Logout gagal:', status, error);
+                    alert('Logout gagal');
+                }
+            });
+        });
+    });
+</script>
+
+
+</body>
+</html>
